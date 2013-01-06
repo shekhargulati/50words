@@ -2,6 +2,10 @@ package com.fiftywords.service;
 
 import javax.inject.Inject;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.fiftywords.domain.Challenge;
@@ -15,12 +19,29 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Inject
 	private ChallengeRepository challengeRepository;
 	
+	@Inject
+	private MongoTemplate mongoTemplate;
+	
 	@Override
 	public Challenge create(Challenge challenge) {
 		challenge.setState(State.NOT_STARTED);
-		challenge.setParticipants(new String[]{challenge.getCreatedBy()});
-		challenge.setEndAt(DateUtils.addDays(challenge.getStartAt(), challenge.getDuration().getDays()));
+		challenge.setParticipants(new String[] { challenge.getCreatedBy() });
+		if (challenge.getStartAt() != null && challenge.getDuration() != null) {
+			
+			challenge.setEndAt(DateUtils.addDays(challenge.getStartAt(),
+					challenge.getDuration().getDays()));
+		
+		}
 		return challengeRepository.save(challenge);
+	}
+
+	@Override
+	public void addParticipantsToChallenge(String challengeId,
+			String[] participants) {
+		Query query = Query.query(Criteria.where("_id").is(challengeId));
+		Update update = new Update();
+		update.pushAll("participants", participants);
+		mongoTemplate.updateFirst(query, update, Challenge.class);
 	}
 
 	@Override
@@ -31,20 +52,20 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public void delete(Challenge challenge) {
-		// TODO Auto-generated method stub
-
+		challengeRepository.delete(challenge);
 	}
 
 	@Override
 	public Challenge read(String challengeId) {
-		// TODO Auto-generated method stub
-		return null;
+		return challengeRepository.findOne(challengeId);
 	}
 
 	@Override
-	public void start(String challengId) {
-		// TODO Auto-generated method stub
-
+	public void addStoryToChallenge(String challengeId, String storyId) {
+		Query query = Query.query(Criteria.where("_id").is(challengeId));
+		Update update = new Update();
+		update.push("stories", storyId);
+		mongoTemplate.updateFirst(query, update, Challenge.class);
 	}
 
 }

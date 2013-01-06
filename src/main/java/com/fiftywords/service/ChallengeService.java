@@ -12,6 +12,7 @@ public interface ChallengeService {
 	
 	public Challenge read(String challengeId);
 	
-	public void start(String challengId);
-	
+	void addParticipantsToChallenge(String challengeId, String[] participants);
+
+	void addStoryToChallenge(String challengeId,String storyId);
 }

@@ -1,5 +1,6 @@
 package com.fiftywords.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
@@ -59,6 +60,8 @@ public class Challenge {
 	// the state of the challenge
 	@NotNull
 	private State state;
+	
+	private String[] stories;
 
 	public String getId() {
 		return id;
@@ -132,4 +135,76 @@ public class Challenge {
 		this.state = state;
 	}
 
+	public void setStories(String[] stories) {
+		this.stories = stories;
+	}
+	
+	public String[] getStories() {
+		return stories;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((challenge == null) ? 0 : challenge.hashCode());
+		result = prime
+				* result
+				+ ((challengeDescription == null) ? 0 : challengeDescription
+						.hashCode());
+		result = prime * result
+				+ ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result
+				+ ((duration == null) ? 0 : duration.hashCode());
+		result = prime * result + ((endAt == null) ? 0 : endAt.hashCode());
+		result = prime * result + Arrays.hashCode(participants);
+		result = prime * result + ((startAt == null) ? 0 : startAt.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Challenge other = (Challenge) obj;
+		if (challenge == null) {
+			if (other.challenge != null)
+				return false;
+		} else if (!challenge.equals(other.challenge))
+			return false;
+		if (challengeDescription == null) {
+			if (other.challengeDescription != null)
+				return false;
+		} else if (!challengeDescription.equals(other.challengeDescription))
+			return false;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (duration != other.duration)
+			return false;
+		if (endAt == null) {
+			if (other.endAt != null)
+				return false;
+		} else if (!endAt.equals(other.endAt))
+			return false;
+		if (!Arrays.equals(participants, other.participants))
+			return false;
+		if (startAt == null) {
+			if (other.startAt != null)
+				return false;
+		} else if (!startAt.equals(other.startAt))
+			return false;
+		if (state != other.state)
+			return false;
+		return true;
+	}
+
+	
 }
