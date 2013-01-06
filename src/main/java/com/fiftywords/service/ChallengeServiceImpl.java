@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.fiftywords.domain.Challenge;
 import com.fiftywords.domain.State;
 import com.fiftywords.repository.ChallengeRepository;
+import com.fiftywords.scheduler.ChallengeScheduler;
+import com.fiftywords.scheduler.tasks.EndChallengeTask;
+import com.fiftywords.scheduler.tasks.StartChallengeTask;
 import com.fiftywords.utils.DateUtils;
 
 @Service
@@ -18,19 +21,22 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Inject
 	private ChallengeRepository challengeRepository;
-	
+
 	@Inject
 	private MongoTemplate mongoTemplate;
-	
+
+	@Inject
+	private ChallengeScheduler challengeScheduler;
+
 	@Override
 	public Challenge create(Challenge challenge) {
 		challenge.setState(State.NOT_STARTED);
 		challenge.setParticipants(new String[] { challenge.getCreatedBy() });
 		if (challenge.getStartAt() != null && challenge.getDuration() != null) {
-			
+
 			challenge.setEndAt(DateUtils.addDays(challenge.getStartAt(),
 					challenge.getDuration().getDays()));
-		
+
 		}
 		return challengeRepository.save(challenge);
 	}
@@ -66,6 +72,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 		Update update = new Update();
 		update.push("stories", storyId);
 		mongoTemplate.updateFirst(query, update, Challenge.class);
+	}
+
+	@Override
+	public void scheduleTasks(Challenge challenge) {
+		challengeScheduler.scheduleChallengeTasks(challenge,
+				new StartChallengeTask(mongoTemplate, challenge.getId()),
+				new EndChallengeTask(mongoTemplate, challenge.getId()));
 	}
 
 }

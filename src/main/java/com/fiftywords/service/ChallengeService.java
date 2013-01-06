@@ -15,4 +15,6 @@ public interface ChallengeService {
 	void addParticipantsToChallenge(String challengeId, String[] participants);
 
 	void addStoryToChallenge(String challengeId,String storyId);
+	
+	void scheduleTasks(Challenge challenge);
 }

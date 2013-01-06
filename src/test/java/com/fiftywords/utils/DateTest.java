@@ -21,9 +21,9 @@ public class DateTest {
 		System.out.println(monthOfYear);
 		System.out.println(dateTime);
 
-		dateTime = dateTime.plusDays(10);
+		dateTime = dateTime.plusMinutes(2);
 
-		System.out.println(dateTime);
+		System.out.println(dateTime.getMillis());
 
 		dateTime = new DateTime();
 		String monthAsText = dateTime.monthOfYear().getAsText();

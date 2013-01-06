@@ -1,12 +1,18 @@
 package com.fiftywords.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import flexjson.JSONDeserializer;
+import flexjson.JSONSerializer;
 
 /**
  * This is the first entity user creates after logging in. A user can either
@@ -206,5 +212,24 @@ public class Challenge {
 		return true;
 	}
 
-	
+	public String toJson() {
+		return new JSONSerializer().include("participants").include("stories").exclude("*.class")
+				.serialize(this);
+	}
+
+	public static Challenge fromJson(String json) {
+		return new JSONDeserializer<Challenge>().use(null, Challenge.class)
+				.deserialize(json);
+	}
+
+	public static String toJsonArray(Collection<Challenge> collection) {
+		return new JSONSerializer().include("participants").include("stories").exclude("*.class")
+				.serialize(collection);
+	}
+
+	public static Collection<Challenge> fromJsonArray(String json) {
+		return new JSONDeserializer<List<Challenge>>()
+				.use(null, ArrayList.class).use("participants", Challenge.class)
+				.deserialize(json);
+	}
 }
