@@ -34,3 +34,6 @@ The challenge can be 7days, 30 days, 90 days, 180days, or 365 days. Once challen
 
 12. As a user, I can view my report card with all my challenges and how I performed.
 
+13. As a user who create the challenge, I should be able to associate gift with challenge.
+
+14. Ability to create challenges for others. For example, parents can create challenge for their childern.
