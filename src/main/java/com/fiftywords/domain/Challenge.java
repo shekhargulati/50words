@@ -20,7 +20,7 @@ import flexjson.JSONSerializer;
  * essays are the heart of application. Every challenge will be persisted in
  * MongoDB challenges collection. Challenge is immutable after starting. User
  * can't change the duration or anything else. User can only win the challenge
- * if he/she write 50words through out its duration. User can delete/deactivate
+ * if he/she write 50 words through out its duration. User can delete/deactivate
  * a challenge either before starting or after ending.
  * 
  * A user who creates the challenge is always the participant.
@@ -67,7 +67,7 @@ public class Challenge {
 	@NotNull
 	private State state;
 	
-	private String[] stories;
+	private String[] storyIds;
 
 	public String getId() {
 		return id;
@@ -141,13 +141,14 @@ public class Challenge {
 		this.state = state;
 	}
 
-	public void setStories(String[] stories) {
-		this.stories = stories;
+	public void setStoryIds(String[] storyIds) {
+		this.storyIds = storyIds;
 	}
 	
-	public String[] getStories() {
-		return stories;
+	public String[] getStoryIds() {
+		return storyIds;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

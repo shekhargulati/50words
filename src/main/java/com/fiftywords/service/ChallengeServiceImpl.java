@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fiftywords.domain.Challenge;
 import com.fiftywords.domain.State;
-import com.fiftywords.repository.ChallengeRepository;
+import com.fiftywords.mongodb.repository.ChallengeRepository;
 import com.fiftywords.scheduler.ChallengeScheduler;
 import com.fiftywords.scheduler.tasks.EndChallengeTask;
 import com.fiftywords.scheduler.tasks.StartChallengeTask;
@@ -70,7 +70,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public void addStoryToChallenge(String challengeId, String storyId) {
 		Query query = Query.query(Criteria.where("_id").is(challengeId));
 		Update update = new Update();
-		update.push("stories", storyId);
+		update.push("storyIds", storyId);
 		mongoTemplate.updateFirst(query, update, Challenge.class);
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fiftywords.config.ApplicationConfig;
 import com.fiftywords.domain.Challenge;
@@ -30,6 +31,7 @@ import com.fiftywords.domain.builders.ChallengeBuilder;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("dev")
 @ContextConfiguration(classes = ApplicationConfig.class)
+@WebAppConfiguration
 public class ChallengeServiceImplTest {
 
 	@Inject
@@ -97,8 +99,8 @@ public class ChallengeServiceImplTest {
 		
 		challenge = challengeService.read(challenge.getId());
 		
-		assertEquals(1,challenge.getStories().length);
-		assertEquals("storyId", challenge.getStories()[0]);
+		assertEquals(1,challenge.getStoryIds().length);
+		assertEquals("storyId", challenge.getStoryIds()[0]);
 		
 	}
 	private Challenge newChallenge() {

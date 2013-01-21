@@ -1,4 +1,4 @@
-package com.fiftywords.repository;
+package com.fiftywords.mongodb.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 

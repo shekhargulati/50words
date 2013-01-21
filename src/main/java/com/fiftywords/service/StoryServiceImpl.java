@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.fiftywords.domain.Story;
-import com.fiftywords.repository.StoryRepository;
+import com.fiftywords.mongodb.repository.StoryRepository;
 
 @Service
 public class StoryServiceImpl implements StoryService {

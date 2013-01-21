@@ -18,7 +18,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import com.fiftywords.repository.ChallengeRepository;
+import com.fiftywords.mongodb.repository.ChallengeRepository;
 
 @Configuration
 @ComponentScan("com.fiftywords")

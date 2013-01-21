@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fiftywords.config.ApplicationConfig;
 import com.fiftywords.domain.Challenge;
@@ -27,6 +28,7 @@ import com.fiftywords.service.ChallengeService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("dev")
 @ContextConfiguration(classes = ApplicationConfig.class)
+@WebAppConfiguration
 public class ChallengeSchedulerTest {
 
 	@Inject

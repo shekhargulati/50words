@@ -21,7 +21,7 @@ public class ChallengeTest {
 		challenge.setId("challengeId");
 		challenge.setEndAt(new Date());
 		challenge.setParticipants(new String[]{"test_user"});
-		challenge.setStories(new String[]{"storyId"});
+		challenge.setStoryIds(new String[]{"storyId"});
 		
 		System.out.println(challenge.toJson());
 		
