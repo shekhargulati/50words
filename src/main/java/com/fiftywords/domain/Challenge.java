@@ -1,18 +1,13 @@
 package com.fiftywords.domain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import flexjson.JSONDeserializer;
-import flexjson.JSONSerializer;
 
 /**
  * This is the first entity user creates after logging in. A user can either
@@ -35,36 +30,37 @@ public class Challenge {
 
 	// the challenge title -- what this challenge is about
 	@NotNull
-	@Size(max = 400)
+//	@Size(max = 400)
 	private String challenge;
 
 	// describe the challenge in detail.
-	@NotNull
-	@Size(max = 4000)
+//	@NotNull
+//	@Size(max = 4000)
 	private String challengeDescription;
 
 	// the time at which the challenge will start. User can choose now or sometime later
 	@NotNull
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	private Date startAt;
 
 	// the time at which challenge will end. This is equal to startTime + duration
-	@NotNull
+//	@NotNull
 	private Date endAt;
 
 	// The username of user who created the challenge
-	@NotNull
+//	@NotNull
 	private String createdBy;
 
 	// The usernames of all the users who are participating in the challenge. User who created the challenge is one of them.
-	@NotNull
+//	@NotNull
 	private String[] participants;
 
 	// the duration for which challenge will last
-	@NotNull
+//	@NotNull
 	private Duration duration;
 
 	// the state of the challenge
-	@NotNull
+//	@NotNull
 	private State state;
 	
 	private String[] storyIds;
@@ -213,24 +209,24 @@ public class Challenge {
 		return true;
 	}
 
-	public String toJson() {
-		return new JSONSerializer().include("participants").include("stories").exclude("*.class")
-				.serialize(this);
-	}
-
-	public static Challenge fromJson(String json) {
-		return new JSONDeserializer<Challenge>().use(null, Challenge.class)
-				.deserialize(json);
-	}
-
-	public static String toJsonArray(Collection<Challenge> collection) {
-		return new JSONSerializer().include("participants").include("stories").exclude("*.class")
-				.serialize(collection);
-	}
-
-	public static Collection<Challenge> fromJsonArray(String json) {
-		return new JSONDeserializer<List<Challenge>>()
-				.use(null, ArrayList.class).use("participants", Challenge.class)
-				.deserialize(json);
-	}
+//	public String toJson() {
+//		return new JSONSerializer().include("participants").include("stories").exclude("*.class")
+//				.serialize(this);
+//	}
+//
+//	public static Challenge fromJson(String json) {
+//		return new JSONDeserializer<Challenge>().use(null, Challenge.class)
+//				.deserialize(json);
+//	}
+//
+//	public static String toJsonArray(Collection<Challenge> collection) {
+//		return new JSONSerializer().include("participants").include("stories").exclude("*.class")
+//				.serialize(collection);
+//	}
+//
+//	public static Collection<Challenge> fromJsonArray(String json) {
+//		return new JSONDeserializer<List<Challenge>>()
+//				.use(null, ArrayList.class).use("participants", Challenge.class)
+//				.deserialize(json);
+//	}
 }
